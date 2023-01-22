@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "systemHistoryPrice"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1424"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: database
+  parser:
+    image: porterdm/parsehtml-parser
+    depends_on:
+      - postgres
